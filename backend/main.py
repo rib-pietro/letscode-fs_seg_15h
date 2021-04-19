@@ -4,17 +4,26 @@ posts = [
     {
         'url': 'beneficios-do-sono',
         'titulo': 'Benefícios do sono',
-        'conteudo': 'Sono faz seu corpo relaxar, você consegue pensar mais facilmente nas dúvidas.'
+        'conteudo': 'Sono faz seu corpo relaxar, você consegue pensar mais facilmente nas dúvidas.',
+        'views': 0,
     },
     {
         'url': 'netflix',
         'titulo': 'Netflix',
-        'conteudo': 'Netflix é bom!!!'
+        'conteudo': 'Netflix é bom!!!',
+        'views': 0,
     },
     {
         'url': 'passaros',
         'titulo': 'Pássaros',
-        'conteudo': 'Pássaros são ajudados pelo Luis, voam e fazem cocô na nossa cabeça'
+        'conteudo': 'Pássaros são ajudados pelo Luis, voam e fazem cocô na nossa cabeça',
+        'views': 0,
+    },
+    {
+        'url': 'flamengo',
+        'titulo': 'Flamengo',
+        'conteudo': 'Maior da américa',
+        'views': 0,
     }
 ]
 
@@ -26,7 +35,7 @@ def index():
     for post in posts:
         links_html += f'''
         <li>
-            <a href="http://localhost:8080/posts/{url_post}">{post_title}</a>
+            <a href="http://localhost:8080/posts/{post["url"]}">{post["titulo"]}</a>
         </li>
         '''
 
@@ -43,13 +52,17 @@ def index():
 def get_post(url_post):
     post_encontrado = None
 
-    for post in posts:
-        if post['url'] == url_post:
-            post_encontrado = post
+    for i in range(len(posts)):
+        if posts[i]['url'] == url_post:
+            posts[i]['views'] += 1
+            post_encontrado = posts[i]
     
+    if post_encontrado == None:
+        return "Post não encontrado!"
+
     return f"""
     <h1>{post_encontrado['titulo']}</h1>
-
+    <p>Visualizações: {post_encontrado['views']}</p>
     <p>{post_encontrado['conteudo']}</p>
     """
 
