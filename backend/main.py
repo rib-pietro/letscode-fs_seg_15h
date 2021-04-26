@@ -46,6 +46,40 @@ def index():
     </ul>
     """
 
+@route('/posts/cadastrar')
+def formulario_post():
+    return """
+    <form method="POST" action="/posts/cadastrar">
+        <div>
+            <label for="titulo">Título: </label>
+            <input type="text" name="titulo" id="titulo" />
+        </div>
+        <div>
+            <label for="url">URL: </label>
+            <input type="text" name="url" id="url" />
+        </div>
+        <div>
+            <label for="conteudo">Conteúdo: </label>
+            <textarea name="conteudo" id="conteudo"></textarea>
+        </div>
+        <button type="submit">Cadastrar post</button>
+    </form>
+    """
+
+@route('/posts/cadastrar', method='POST')
+def cadastrar_post():
+    info_post = request.forms
+    novo_post = {}
+    novo_post['url'] = info_post['url']
+    novo_post['titulo'] = info_post['titulo']
+    novo_post['conteudo'] = info_post['conteudo']
+    novo_post['views'] = 0
+
+    posts.append(novo_post)
+
+    return "Post cadastrado! <a href='/'>Voltar para Home</a>"
+    
+
 # rotas dinâmicas
 
 @route('/posts/<url_post>')
