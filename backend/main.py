@@ -1,5 +1,10 @@
 from bottle import *
 
+tarefas = [
+    'Molhar as plantas',
+    'Limpar o cocô'
+]
+
 posts = [
     {
         'url': 'beneficios-do-sono',
@@ -77,7 +82,8 @@ def cadastrar_post():
 
     posts.append(novo_post)
 
-    return "Post cadastrado! <a href='/'>Voltar para Home</a>"
+    redirect('/posts/cadastrar')
+    # return "Post cadastrado! <a href='/'>Voltar para Home</a>"
     
 
 # rotas dinâmicas
